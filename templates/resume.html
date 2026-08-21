@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}
+CareerAI | Resume Analyzer
+{% endblock %}
+
+{% block content %}
+
+<div class="resume-page">
+
+    <!-- =====================================================
+         WELCOME HEADER
+         ===================================================== -->
+
+    <div class="resume-header">
+
+        <div class="resume-badge">
+            ✦ AI CAREER ASSISTANT
+        </div>
+
+        <h1>
+            Welcome ,
+            <span>{{ session.get("user_name", "there") }}</span> 👋
+        </h1>
+
+        <p>
+            Let's continue building your career journey.
+            Upload your resume and let CareerAI understand
+            your skills, strengths and career potential.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         UPLOAD CARD
+         ===================================================== -->
+
+    <div class="resume-upload-card">
+
+        <div class="resume-upload-icon">
+            📄
+        </div>
+
+        <h2>
+            Upload Your Resume
+        </h2>
+
+        <p>
+            Upload your resume in PDF format to get
+            personalized career insights.
+        </p>
+
+
+        <!-- ERROR -->
+
+        {% if error %}
+
+        <div class="resume-error">
+            ⚠ {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <!-- RESUME FORM -->
+
+        <form
+            action="{{ url_for('resume') }}"
+            method="POST"
+            enctype="multipart/form-data"
+            class="resume-form"
+        >
+
+            <!-- DROPZONE -->
+
+            <label
+                for="resume"
+                class="resume-dropzone"
+            >
+
+                <div class="drop-icon">
+                    ☁
+                </div>
+
+                <strong>
+                    Choose your resume
+                </strong>
+
+                <span>
+                    PDF files only
+                </span>
+
+                <small id="file-name">
+                    No file selected
+                </small>
+
+            </label>
+
+
+            <!-- FILE INPUT -->
+
+            <input
+                type="file"
+                id="resume"
+                name="resume"
+                accept=".pdf"
+                hidden
+                required
+            >
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="resume-upload-btn"
+            >
+                ✦ Analyze My Resume
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- =====================================================
+         FEATURES
+         ===================================================== -->
+
+    <div class="resume-features">
+
+        <!-- SKILL DETECTION -->
+
+        <div class="resume-feature-card">
+
+            <div class="feature-icon">
+                🧠
+            </div>
+
+            <h3>
+                Skill Detection
+            </h3>
+
+            <p>
+                Automatically identify technical
+                skills from your resume.
+            </p>
+
+        </div>
+
+
+        <!-- RESUME SCORE -->
+
+        <div class="resume-feature-card">
+
+            <div class="feature-icon">
+                📊
+            </div>
+
+            <h3>
+                Resume Score
+            </h3>
+
+            <p>
+                Get an AI-powered score based on
+                your resume skills and content.
+            </p>
+
+        </div>
+
+
+        <!-- CAREER MATCHING -->
+
+        <div class="resume-feature-card">
+
+            <div class="feature-icon">
+                🎯
+            </div>
+
+            <h3>
+                Career Matching
+            </h3>
+
+            <p>
+                Discover career paths and job
+                opportunities matching your skills.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PRIVACY NOTE
+         ===================================================== -->
+
+    <div class="resume-note">
+
+        <span>
+            🔒
+        </span>
+
+        <p>
+            Your resume is processed by CareerAI
+            for skill analysis, career matching
+            and personalized recommendations.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SHOW SELECTED FILE NAME
+     ========================================================= -->
+
+<script>
+
+const resumeInput = document.getElementById("resume");
+
+const fileName = document.getElementById("file-name");
+
+
+if (resumeInput) {
+
+    resumeInput.addEventListener(
+        "change",
+        function () {
+
+            if (this.files.length > 0) {
+
+                fileName.textContent =
+                    this.files[0].name;
+
+            } else {
+
+                fileName.textContent =
+                    "No file selected";
+
+            }
+
+        }
+    );
+
+}
+
+</script>
+
+{% endblock %}

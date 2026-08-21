@@ -1,0 +1,363 @@
+{% extends "base.html" %}
+
+{% block title %}
+CareerAI | My Profile
+{% endblock %}
+
+{% block content %}
+
+<section class="profile-page">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="profile-header">
+
+        <div class="profile-badge">
+            ✦ MY CAREER PROFILE
+        </div>
+
+        <h1>
+            Welcome,
+            <span>{{ session.get("user_name", "User") }}</span> 👋
+        </h1>
+
+        <p>
+            Your personalized CareerAI dashboard is ready.
+            Track your resume, skills and career progress from here.
+        </p>
+
+    </div>
+
+
+    <!-- ================= PROFILE GRID ================= -->
+
+    <div class="profile-grid">
+
+        <!-- LEFT PROFILE CARD -->
+
+        <div class="profile-card profile-main-card">
+
+            <div class="profile-avatar">
+                {{ session.get("user_name", "U")[0]|upper }}
+            </div>
+
+            <h2>
+                {{ session.get("user_name", "User") }}
+            </h2>
+
+            <p class="profile-role">
+                CareerAI Member
+            </p>
+
+            <div class="profile-details">
+
+                <div class="profile-detail">
+
+                    <span class="detail-icon">
+                        ✉
+                    </span>
+
+                    <div>
+                        <small>
+                            EMAIL
+                        </small>
+
+                        <strong>
+                            {{ session.get("user_email", "Not available") }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="profile-detail">
+
+                    <span class="detail-icon">
+                        🎯
+                    </span>
+
+                    <div>
+                        <small>
+                            CAREER GOAL
+                        </small>
+
+                        <strong>
+                            {{ session.get("user_goal", "Not selected") }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT ATS CARD -->
+
+        <div class="profile-card ats-card">
+
+            <div class="ats-heading">
+
+                <div>
+                    <span class="card-label">
+                        RESUME ANALYSIS
+                    </span>
+
+                    <h2>
+                        ATS Resume Score
+                    </h2>
+                </div>
+
+                <div class="ats-icon">
+                    📊
+                </div>
+
+            </div>
+
+
+            {% set score = session.get("resume_score", 0) %}
+
+            <div class="ats-score-area">
+
+                <div class="ats-circle">
+
+                    <div>
+
+                        <strong>
+                            {{ score }}%
+                        </strong>
+
+                        <span>
+                            ATS SCORE
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ats-message">
+
+                    {% if score >= 80 %}
+
+                        <h3>
+                            Excellent Resume! 🎉
+                        </h3>
+
+                        <p>
+                            Your resume has a strong ATS-friendly profile.
+                        </p>
+
+                    {% elif score >= 60 %}
+
+                        <h3>
+                            Good Resume 👍
+                        </h3>
+
+                        <p>
+                            Your resume is good, but there is room for improvement.
+                        </p>
+
+                    {% elif score > 0 %}
+
+                        <h3>
+                            Needs Improvement
+                        </h3>
+
+                        <p>
+                            Analyze your skills and improve your resume to increase your score.
+                        </p>
+
+                    {% else %}
+
+                        <h3>
+                            Resume Not Analyzed Yet
+                        </h3>
+
+                        <p>
+                            Upload your resume to calculate your ATS score.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('resume') }}"
+                class="profile-primary-btn"
+            >
+
+                📄
+                {% if score > 0 %}
+                    Analyze Again
+                {% else %}
+                    Upload Your Resume
+                {% endif %}
+
+                →
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= SKILLS CARD ================= -->
+
+    <div class="profile-card profile-skills-card">
+
+        <div class="profile-section-heading">
+
+            <div>
+
+                <span class="card-label">
+                    RESUME PROFILE
+                </span>
+
+                <h2>
+                    Your Detected Skills
+                </h2>
+
+            </div>
+
+            <div class="skills-icon">
+                🧠
+            </div>
+
+        </div>
+
+
+        {% set skills = session.get("resume_skills", []) %}
+
+
+        {% if skills %}
+
+        <div class="profile-skill-list">
+
+            {% for skill in skills %}
+
+            <span>
+                ✓ {{ skill }}
+            </span>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+        <div class="no-profile-skills">
+
+            <span>
+                🔎
+            </span>
+
+            <p>
+                No skills detected yet.
+                Upload your resume to analyze your skills.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================= ACTIONS ================= -->
+
+    <div class="profile-actions">
+
+        <a
+            href="{{ url_for('resume') }}"
+            class="profile-action primary"
+        >
+
+            📄
+
+            <div>
+
+                <strong>
+                    Upload Resume
+                </strong>
+
+                <span>
+                    Analyze your resume
+                </span>
+
+            </div>
+
+            →
+
+        </a>
+
+
+        <a
+            href="{{ url_for('career') }}"
+            class="profile-action"
+        >
+
+            🎯
+
+            <div>
+
+                <strong>
+                    Career Recommendations
+                </strong>
+
+                <span>
+                    Explore suitable career paths
+                </span>
+
+            </div>
+
+            →
+
+        </a>
+
+
+        <a
+            href="{{ url_for('jobs') }}"
+            class="profile-action"
+        >
+
+            💼
+
+            <div>
+
+                <strong>
+                    Job Opportunities
+                </strong>
+
+                <span>
+                    Find jobs matching your skills
+                </span>
+
+            </div>
+
+            →
+
+        </a>
+
+    </div>
+
+
+    <!-- ================= LOGOUT ================= -->
+
+    <div class="profile-logout">
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

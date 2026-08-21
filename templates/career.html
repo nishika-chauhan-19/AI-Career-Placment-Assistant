@@ -1,0 +1,344 @@
+{% extends "base.html" %}
+
+{% block title %}
+CareerAI | Career Recommendations
+{% endblock %}
+
+{% block content %}
+
+<section class="career-page">
+
+    <!-- ================= PAGE HEADER ================= -->
+
+    <div class="career-header">
+
+        <div class="career-badge">
+            ✦ AI CAREER RECOMMENDATION
+        </div>
+
+        <h1>
+            Find Your
+            <span>Best Career Path</span>
+        </h1>
+
+        <p>
+            Discover career paths based on your skills,
+            identify skill gaps and explore suitable job roles.
+        </p>
+
+    </div>
+
+
+    <!-- ================= USER SKILLS ================= -->
+
+    {% if user_skills %}
+
+    <div class="career-skills-card">
+
+        <div class="career-card-heading">
+
+            <div class="career-icon">
+                🧠
+            </div>
+
+            <div>
+
+                <span class="card-label">
+                    YOUR SKILLS
+                </span>
+
+                <h2>
+                    Skills Used For Recommendation
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="result-skills">
+
+            {% for skill in user_skills %}
+
+            <span>
+                {{ skill }}
+            </span>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================= CAREER RECOMMENDATIONS ================= -->
+
+    {% if recommendations %}
+
+    <div class="career-grid">
+
+        {% for career in recommendations %}
+
+        <article class="career-card">
+
+
+            <!-- ================= CARD HEADER ================= -->
+
+            <div class="career-card-top">
+
+                <div class="career-number">
+
+                    {% if loop.index == 1 %}
+
+                        🏆
+
+                    {% elif loop.index == 2 %}
+
+                        🥈
+
+                    {% elif loop.index == 3 %}
+
+                        🥉
+
+                    {% else %}
+
+                        {{ loop.index }}
+
+                    {% endif %}
+
+                </div>
+
+
+                <span class="career-match">
+
+                    {{ career.match }}% Match
+
+                </span>
+
+            </div>
+
+
+            <!-- ================= CAREER TITLE ================= -->
+
+            <h2>
+                {{ career.title }}
+            </h2>
+
+
+            <!-- ================= DESCRIPTION ================= -->
+
+            <p class="career-description">
+
+                {{ career.description }}
+
+            </p>
+
+
+            <!-- ================= MATCHING SKILLS ================= -->
+
+            <div class="career-section">
+
+                <h3>
+                    ✓ Matching Skills
+                </h3>
+
+
+                <div class="career-tags">
+
+                    {% if career.matched_skills %}
+
+                        {% for skill in career.matched_skills %}
+
+                        <span class="matched">
+                            ✓ {{ skill }}
+                        </span>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <span class="not-found">
+                            No matching skills yet
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SKILLS TO LEARN ================= -->
+
+            <div class="career-section">
+
+                <h3>
+                    📚 Skills To Learn
+                </h3>
+
+
+                <div class="career-tags">
+
+                    {% if career.missing_skills %}
+
+                        {% for skill in career.missing_skills %}
+
+                        <span class="missing">
+                            + {{ skill }}
+                        </span>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <span class="complete">
+                            ✓ All required skills available
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= POSSIBLE JOB ROLES ================= -->
+
+            <div class="career-section">
+
+                <h3>
+                    💼 Possible Job Roles
+                </h3>
+
+
+                <div class="career-roles">
+
+                    {% for role in career.roles %}
+
+                    <span>
+                        {{ role }}
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= MATCH SCORE ================= -->
+
+            <div class="career-card-footer">
+
+                <div class="career-match-heading">
+
+                    <span>
+                        Career Match
+                    </span>
+
+                    <strong>
+                        {{ career.match }}%
+                    </strong>
+
+                </div>
+
+
+                <!--
+                    IMPORTANT:
+                    The CSS variable receives the
+                    actual career match percentage.
+                -->
+
+                <div
+                    class="career-progress"
+                    style="--career-match: {{ career.match }}%;"
+                >
+
+                    <div class="career-progress-bar"></div>
+
+                </div>
+
+            </div>
+
+
+        </article>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- ================= NEXT STEP ================= -->
+
+    <div class="career-action-card">
+
+        <div>
+
+            <span class="card-label">
+                NEXT STEP
+            </span>
+
+            <h2>
+                Ready to explore job opportunities?
+            </h2>
+
+            <p>
+                Find jobs matching your skills and
+                career interests.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('jobs') }}"
+            class="primary-btn"
+        >
+
+            Explore Jobs →
+
+        </a>
+
+    </div>
+
+
+    <!-- ================= NO RECOMMENDATIONS ================= -->
+
+    {% else %}
+
+    <div class="career-empty">
+
+        <div>
+            🧭
+        </div>
+
+
+        <h2>
+            No Career Recommendations Yet
+        </h2>
+
+
+        <p>
+            Upload your resume first to receive
+            personalized career recommendations.
+        </p>
+
+
+        <a
+            href="{{ url_for('resume') }}"
+            class="primary-btn"
+        >
+
+            Analyze Resume →
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

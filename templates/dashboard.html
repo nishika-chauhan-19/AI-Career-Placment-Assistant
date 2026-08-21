@@ -1,0 +1,524 @@
+{% extends "base.html" %}
+
+{% block title %}
+CareerAI | Dashboard
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-section">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <div class="dashboard-badge">
+                <span>✦</span>
+                AI CAREER DASHBOARD
+            </div>
+
+            <h1>
+                Welcome back,
+                <span>{{ user["name"] }}</span> 👋
+            </h1>
+
+            <p>
+                Track your career progress, analyze your skills
+                and discover opportunities that match your profile.
+            </p>
+
+        </div>
+
+        <a href="/logout" class="dashboard-logout">
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <div class="dashboard-stats">
+
+
+        <div class="dashboard-stat-card">
+
+            <div class="stat-icon purple">
+                📄
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Resume Status
+                </span>
+
+                <strong>
+                    Not Analyzed
+                </strong>
+
+                <small>
+                    Upload your resume
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat-card">
+
+            <div class="stat-icon blue">
+                🎯
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Career Goal
+                </span>
+
+                <strong>
+                    {{ user["career_goal"] }}
+                </strong>
+
+                <small>
+                    Your selected goal
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat-card">
+
+            <div class="stat-icon cyan">
+                💡
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Skills Added
+                </span>
+
+                <strong>
+                    {{ user["skills"].split(",")|length }}
+                </strong>
+
+                <small>
+                    Skills in your profile
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stat-card">
+
+            <div class="stat-icon pink">
+                💼
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Job Matches
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+                <small>
+                    Matches available
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MAIN GRID ================= -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- ================= PROFILE CARD ================= -->
+
+        <div class="dashboard-card profile-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="card-label">
+                        YOUR PROFILE
+                    </span>
+
+                    <h2>
+                        Career Profile
+                    </h2>
+
+                </div>
+
+                <span class="card-heading-icon">
+                    👤
+                </span>
+
+            </div>
+
+
+            <div class="profile-details">
+
+                <div class="profile-row">
+
+                    <span>
+                        Full Name
+                    </span>
+
+                    <strong>
+                        {{ user["name"] }}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Email
+                    </span>
+
+                    <strong>
+                        {{ user["email"] }}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Career Goal
+                    </span>
+
+                    <strong class="highlight-text">
+                        {{ user["career_goal"] }}
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row skills-row">
+
+                    <span>
+                        Skills
+                    </span>
+
+                    <div class="skill-tags">
+
+                        {% for skill in user["skills"].split(",") %}
+
+                            <span class="skill-tag">
+                                {{ skill.strip() }}
+                            </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RESUME CARD ================= -->
+
+        <div class="dashboard-card resume-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="card-label">
+                        RESUME ANALYZER
+                    </span>
+
+                    <h2>
+                        Analyze Your Resume
+                    </h2>
+
+                </div>
+
+                <span class="card-heading-icon">
+                    📄
+                </span>
+
+            </div>
+
+
+            <div class="resume-empty">
+
+                <div class="resume-icon">
+                    ↑
+                </div>
+
+                <h3>
+                    Resume Analysis
+                </h3>
+
+                <p>
+                    Upload your resume to get an AI-powered
+                    analysis of your skills, experience,
+                    strengths and improvement areas.
+                </p>
+
+                <a href="/resume" class="dashboard-action">
+                    Upload Resume
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= SKILL GAP ================= -->
+
+        <div class="dashboard-card skill-gap-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="card-label">
+                        SKILL ANALYSIS
+                    </span>
+
+                    <h2>
+                        Skill Gap Analysis
+                    </h2>
+
+                </div>
+
+                <span class="card-heading-icon">
+                    🧠
+                </span>
+
+            </div>
+
+
+            <div class="skill-gap-content">
+
+                <div class="skill-progress">
+
+                    <div class="progress-circle">
+
+                        <strong>
+                            0%
+                        </strong>
+
+                        <span>
+                            Ready
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="skill-gap-text">
+
+                    <h3>
+                        Build Your Skills
+                    </h3>
+
+                    <p>
+                        After analyzing your resume,
+                        CareerAI will identify missing
+                        skills required for your target role.
+                    </p>
+
+                    <a href="/skills"
+                       class="text-action">
+
+                        View Skill Gap
+                        →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= JOB CARD ================= -->
+
+        <div class="dashboard-card jobs-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="card-label">
+                        OPPORTUNITIES
+                    </span>
+
+                    <h2>
+                        Recommended Jobs
+                    </h2>
+
+                </div>
+
+                <span class="card-heading-icon">
+                    💼
+                </span>
+
+            </div>
+
+
+            <div class="jobs-empty">
+
+                <div class="jobs-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Find Your Next Opportunity
+                </h3>
+
+                <p>
+                    We will recommend jobs based on
+                    your skills, career goal and resume.
+                </p>
+
+                <a href="/jobs"
+                   class="dashboard-action">
+
+                    Explore Jobs
+                    <span>→</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= QUICK ACTIONS ================= -->
+
+    <div class="quick-actions-section">
+
+        <div class="section-title">
+
+            <span>
+                QUICK ACTIONS
+            </span>
+
+            <h2>
+                Continue Building Your Career
+            </h2>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <a href="/resume"
+               class="quick-action-card">
+
+                <div class="quick-icon purple">
+                    📄
+                </div>
+
+                <div>
+
+                    <strong>
+                        Resume Analyzer
+                    </strong>
+
+                    <span>
+                        Check your resume score
+                    </span>
+
+                </div>
+
+                <b>
+                    →
+                </b>
+
+            </a>
+
+
+            <a href="/skills"
+               class="quick-action-card">
+
+                <div class="quick-icon blue">
+                    🧠
+                </div>
+
+                <div>
+
+                    <strong>
+                        Skill Gap
+                    </strong>
+
+                    <span>
+                        Discover missing skills
+                    </span>
+
+                </div>
+
+                <b>
+                    →
+                </b>
+
+            </a>
+
+
+            <a href="/jobs"
+               class="quick-action-card">
+
+                <div class="quick-icon cyan">
+                    💼
+                </div>
+
+                <div>
+
+                    <strong>
+                        Find Jobs
+                    </strong>
+
+                    <span>
+                        Explore matching jobs
+                    </span>
+
+                </div>
+
+                <b>
+                    →
+                </b>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        AI Career & Placement Assistant
+        {% endblock %}
+    </title>
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Main CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+<!-- ================= BACKGROUND EFFECTS ================= -->
+
+<div class="background-effects">
+
+    <span class="glow glow-one"></span>
+
+    <span class="glow glow-two"></span>
+
+    <span class="glow glow-three"></span>
+
+</div>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+
+        <!-- LOGO -->
+
+        <a href="/" class="logo">
+
+            <div class="logo-icon">
+                ✦
+            </div>
+
+            <div class="logo-text">
+                <span>Career</span>AI
+            </div>
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="nav-links">
+
+            <a href="/"
+               class="nav-link">
+                Home
+            </a>
+
+
+            <a href="#features"
+               class="nav-link">
+                Features
+            </a>
+
+<a href="/profile"
+   class="nav-link">
+    Profile
+</a>
+            
+
+
+            
+
+        </nav>
+
+
+        <!-- MOBILE MENU -->
+
+        <button class="menu-toggle"
+                onclick="toggleMenu()">
+
+            ☰
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<main class="main-content">
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+
+        <!-- FOOTER BRAND -->
+
+        <div class="footer-brand">
+
+            <div class="footer-logo">
+                ✦ CareerAI
+            </div>
+
+            <p>
+                AI-powered career guidance,
+                resume analysis and job matching
+                for students.
+            </p>
+
+        </div>
+
+
+        <!-- FOOTER LINKS -->
+
+        <div class="footer-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="/login">
+                Login
+            </a>
+
+        </div>
+
+
+        <!-- FOOTER BOTTOM -->
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 CareerAI.
+                Built with Python & Flask.
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
+
+{% block extra_js %}
+{% endblock %}
+
+
+<!-- ================= MOBILE NAVIGATION ================= -->
+
+<script>
+
+function toggleMenu() {
+
+    const nav =
+        document.querySelector(".nav-links");
+
+    nav.classList.toggle("active");
+
+}
+
+</script>
+
+
+</body>
+
+</html>

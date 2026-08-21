@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}
+CareerAI | Job Details
+{% endblock %}
+
+{% block content %}
+
+<div class="job-detail-page">
+
+    <!-- HEADER -->
+
+    <div class="job-detail-header">
+
+        <div class="jobs-badge">
+            ✦ JOB OPPORTUNITY
+        </div>
+
+        <h1>
+            {{ job.title }}
+        </h1>
+
+        <p>
+            {{ job.company }}
+        </p>
+
+    </div>
+
+
+    <!-- JOB CARD -->
+
+    <div class="job-detail-card">
+
+
+        <!-- TOP -->
+
+        <div class="job-detail-top">
+
+            <div class="company-icon">
+                💼
+            </div>
+
+            <div>
+
+                <h2>
+                    {{ job.title }}
+                </h2>
+
+                <p class="company-name">
+                    {{ job.company }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- JOB INFORMATION -->
+
+        <div class="job-detail-info">
+
+            <div>
+                📍
+                <strong>Location</strong>
+                <span>{{ job.location }}</span>
+            </div>
+
+            <div>
+                💼
+                <strong>Job Type</strong>
+                <span>{{ job.type }}</span>
+            </div>
+
+            <div>
+                💰
+                <strong>Salary</strong>
+                <span>{{ job.salary }}</span>
+            </div>
+
+        </div>
+
+
+        <!-- SKILL MATCH -->
+
+        <div class="job-detail-match">
+
+            <div class="match-heading">
+
+                <span>
+                    Your Skill Match
+                </span>
+
+                <strong>
+                    {{ job.match }}%
+                </strong>
+
+            </div>
+
+
+            <div
+    class="job-detail-progress"
+    style="--match-width: {{ job.match }}%;"
+>
+    <div class="job-detail-progress-bar"></div>
+</div>
+
+        </div>
+
+
+        <!-- MATCHING SKILLS -->
+
+        <div class="job-detail-section">
+
+            <h3>
+                ✓ Your Matching Skills
+            </h3>
+
+            <div class="job-tags">
+
+                {% if job.matched_skills %}
+
+                    {% for skill in job.matched_skills %}
+
+                    <span class="job-matched">
+                        ✓ {{ skill }}
+                    </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <span class="job-none">
+                        No matching skills
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- SKILLS TO IMPROVE -->
+
+        <div class="job-detail-section">
+
+            <h3>
+                📚 Skills To Improve
+            </h3>
+
+            <div class="job-tags">
+
+                {% if job.missing_skills %}
+
+                    {% for skill in job.missing_skills %}
+
+                    <span class="job-missing">
+                        + {{ skill }}
+                    </span>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <span class="job-complete">
+                        ✓ You meet all listed skills
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- REQUIRED SKILLS -->
+
+        <div class="job-detail-section">
+
+            <h3>
+                🧠 Required Skills
+            </h3>
+
+            <div class="job-tags">
+
+                {% for skill in job.skills %}
+
+                <span class="job-required">
+                    {{ skill }}
+                </span>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="job-detail-actions">
+
+            <a
+                href="{{ url_for('jobs') }}"
+                class="secondary-btn"
+            >
+                ← Back to Jobs
+            </a>
+
+
+            <a
+                href="https://www.google.com/search?q={{ job.title|urlencode }}+{{ job.company|urlencode }}+jobs"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="job-apply-btn"
+            >
+                Search & Apply →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

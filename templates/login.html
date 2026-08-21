@@ -1,0 +1,285 @@
+{% extends "base.html" %}
+
+{% block title %}
+CareerAI | Login
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-container login-container">
+
+    <!-- =====================================================
+         LEFT SIDE
+         ===================================================== -->
+
+    <div class="auth-info">
+
+        <div class="auth-badge">
+            <span>✦</span>
+            WELCOME BACK
+        </div>
+
+        <h1>
+            Continue Your
+            <span>Journey.</span>
+        </h1>
+
+        <p>
+            Login to access your personalized
+            career dashboard, resume insights,
+            skill analysis and job recommendations.
+        </p>
+
+
+        <!-- BENEFITS -->
+
+        <div class="auth-benefits">
+
+            <div class="benefit-item">
+
+                <div class="benefit-icon">
+                    📊
+                </div>
+
+                <div>
+                    <strong>
+                        Personal Dashboard
+                    </strong>
+
+                    <span>
+                        Track your career progress
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="benefit-item">
+
+                <div class="benefit-icon">
+                    🎯
+                </div>
+
+                <div>
+                    <strong>
+                        Career Insights
+                    </strong>
+
+                    <span>
+                        Get personalized recommendations
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="benefit-item">
+
+                <div class="benefit-icon">
+                    💼
+                </div>
+
+                <div>
+                    <strong>
+                        Job Opportunities
+                    </strong>
+
+                    <span>
+                        Discover relevant job openings
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         RIGHT SIDE - LOGIN CARD
+         ===================================================== -->
+
+    <div class="auth-card">
+
+        <!-- CARD HEADER -->
+
+        <div class="auth-card-header">
+
+            <div class="auth-card-icon">
+                ✦
+            </div>
+
+            <div>
+
+                <h2>
+                    Welcome Back
+                </h2>
+
+                <p>
+                    Login to your CareerAI account
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ERROR MESSAGE
+             ================================================= -->
+
+        {% if error %}
+
+        <div class="auth-error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             FLASH MESSAGES
+             ================================================= -->
+
+        {% with messages = get_flashed_messages(
+            with_categories=true
+        ) %}
+
+            {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                <div class="flash-message {{ category }}">
+
+                    <span>
+
+                        {% if category == "success" %}
+                            ✓
+                        {% else %}
+                            !
+                        {% endif %}
+
+                    </span>
+
+                    {{ message }}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- =================================================
+             LOGIN FORM
+             ================================================= -->
+
+        <form
+            action="{{ url_for('login') }}"
+            method="POST"
+            class="auth-form"
+        >
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        ✉
+                    </span>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        🔒
+                    </span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                type="submit"
+                class="auth-submit"
+            >
+
+                <span>
+                    Login to CareerAI
+                </span>
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+            <!-- REGISTER LINK -->
+
+            <div class="auth-switch">
+
+                <span>
+                    Don't have an account?
+                </span>
+
+                <a href="{{ url_for('register') }}">
+                    Create Account
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

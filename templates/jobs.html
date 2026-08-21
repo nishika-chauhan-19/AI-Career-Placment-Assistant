@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block title %}
+CareerAI | Job Recommendations
+{% endblock %}
+
+{% block content %}
+
+<section class="jobs-page">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="jobs-header">
+
+        <div class="jobs-badge">
+            ✦ AI JOB MATCHING
+        </div>
+
+        <h1>
+            Find Jobs That
+            <span>Match Your Skills</span>
+        </h1>
+
+        <p>
+            CareerAI compares your resume skills with
+            job requirements and ranks the best matches first.
+        </p>
+
+    </div>
+
+
+    <!-- ================= USER SKILLS ================= -->
+
+    {% if user_skills %}
+
+    <div class="jobs-skills-card">
+
+        <div class="jobs-card-title">
+
+            <div class="jobs-icon">
+                🧠
+            </div>
+
+            <div>
+
+                <span class="card-label">
+                    RESUME PROFILE
+                </span>
+
+                <h2>
+                    Your Skills
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="jobs-skill-list">
+
+            {% for skill in user_skills %}
+
+            <span>
+                {{ skill }}
+            </span>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================= JOB LIST ================= -->
+
+    {% if jobs %}
+
+    <div class="jobs-topbar">
+
+        <div>
+
+            <span class="card-label">
+                RECOMMENDED OPPORTUNITIES
+            </span>
+
+            <h2>
+                {{ jobs|length }} Jobs Found
+            </h2>
+
+        </div>
+
+        <div class="jobs-sort">
+            Best Match First
+        </div>
+
+    </div>
+
+
+    <div class="jobs-grid">
+
+        {% for job in jobs %}
+
+        <article class="job-card">
+
+            <!-- ================= TOP ================= -->
+
+            <div class="job-top">
+
+                <div class="company-icon">
+                    💼
+                </div>
+
+                {% if loop.index == 1 %}
+
+                <span class="best-match">
+                    🏆 BEST MATCH
+                </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- ================= TITLE ================= -->
+
+            <h2>
+                {{ job.title }}
+            </h2>
+
+            <p class="company-name">
+                {{ job.company }}
+            </p>
+
+
+            <!-- ================= JOB INFO ================= -->
+
+            <div class="job-info">
+
+                <span>
+                    📍 {{ job.location }}
+                </span>
+
+                <span>
+                    💼 {{ job.type }}
+                </span>
+
+                <span>
+                    💰 {{ job.salary }}
+                </span>
+
+            </div>
+
+
+            <!-- ================= MATCH SCORE ================= -->
+
+            <div class="job-match-box">
+
+                <div>
+
+                    <span>
+                        Skill Match
+                    </span>
+
+                    <strong>
+                        {{ job.match }}%
+                    </strong>
+
+                </div>
+
+
+                <!--
+                    IMPORTANT:
+                    CSS variable is used instead of
+                    directly putting Jinja inside width.
+                -->
+
+                <div
+                    class="job-progress"
+                    style="--match-width: {{ job.match }}%;"
+                >
+
+                    <div class="job-progress-bar"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= MATCHED SKILLS ================= -->
+
+            <div class="job-section">
+
+                <h3>
+                    ✓ Matching Skills
+                </h3>
+
+                <div class="job-tags">
+
+                    {% if job.matched_skills %}
+
+                        {% for skill in job.matched_skills %}
+
+                        <span class="job-matched">
+                            ✓ {{ skill }}
+                        </span>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <span class="job-none">
+                            No matching skills
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= MISSING SKILLS ================= -->
+
+            <div class="job-section">
+
+                <h3>
+                    📚 Skills To Improve
+                </h3>
+
+                <div class="job-tags">
+
+                    {% if job.missing_skills %}
+
+                        {% for skill in job.missing_skills %}
+
+                        <span class="job-missing">
+                            + {{ skill }}
+                        </span>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <span class="job-complete">
+                            ✓ You meet all listed skills
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= BUTTON ================= -->
+
+            <div class="job-footer">
+
+                <a
+    href="{{ url_for('job_detail', job_id=job.id) }}"
+    class="job-apply-btn"
+>
+    View Opportunity →
+</a>
+
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+    <!-- ================= EMPTY STATE ================= -->
+
+    <div class="jobs-empty">
+
+        <div class="jobs-empty-icon">
+            🔎
+        </div>
+
+        <h2>
+            No Job Matches Yet
+        </h2>
+
+        <p>
+            Upload your resume and add your skills
+            to discover matching opportunities.
+        </p>
+
+        <a
+            href="{{ url_for('resume') }}"
+            class="primary-btn"
+        >
+
+            Analyze Resume →
+
+        </a>
+
+    </div>
+
+    {% endif %}
+    </section>
+
+</div>
+
+{% endblock %}

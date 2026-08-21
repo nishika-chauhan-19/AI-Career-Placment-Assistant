@@ -1,0 +1,291 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}
+CareerAI | Resume Analysis Result
+{% endblock %}
+
+{% block content %}
+
+<section class="resume-result-page">
+
+    <!-- HEADER -->
+
+    <div class="result-header">
+
+        <div class="resume-badge">
+            ✦ RESUME ANALYSIS COMPLETE
+        </div>
+
+        <h1>
+            Your Resume
+            <span>Analysis</span>
+        </h1>
+
+        <p>
+            Here is the analysis of your uploaded resume.
+        </p>
+
+    </div>
+
+
+    <!-- SCORE SECTION -->
+
+    <div class="result-main-grid">
+
+        <!-- SCORE CARD -->
+
+        <div class="score-card">
+
+            <div class="score-circle">
+
+                <div class="score-value">
+                    {{ result.score }}
+                </div>
+
+                <div class="score-total">
+                    / 100
+                </div>
+
+            </div>
+
+
+            <div class="score-content">
+
+                <span class="card-label">
+                    RESUME SCORE
+                </span>
+
+                <h2>
+                    {{ result.label }}
+                </h2>
+
+                <p>
+                    Your resume has been analyzed based on
+                    skills, sections and professional content.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK STATS -->
+
+        <div class="result-stats">
+
+            <div class="result-stat">
+
+                <div class="stat-icon">
+                    🧠
+                </div>
+
+                <div>
+
+                    <span>
+                        Skills Detected
+                    </span>
+
+                    <strong>
+                        {{ result.skills|length }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <div class="stat-icon">
+                    📝
+                </div>
+
+                <div>
+
+                    <span>
+                        Word Count
+                    </span>
+
+                    <strong>
+                        {{ result.word_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-stat">
+
+                <div class="stat-icon">
+                    🎯
+                </div>
+
+                <div>
+
+                    <span>
+                        Career Ready
+                    </span>
+
+                    <strong>
+                        {% if result.score >= 70 %}
+                            Yes
+                        {% else %}
+                            Improve
+                        {% endif %}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DETECTED SKILLS -->
+
+    <div class="detected-skills-card">
+
+        <div class="result-card-header">
+
+            <div>
+
+                <span class="card-label">
+                    SKILL ANALYSIS
+                </span>
+
+                <h2>
+                    Detected Skills
+                </h2>
+
+            </div>
+
+            <div class="result-card-icon">
+                ⚡
+            </div>
+
+        </div>
+
+
+        {% if result.skills %}
+
+        <div class="detected-skills">
+
+            {% for skill in result.skills %}
+
+            <span>
+                ✓ {{ skill }}
+            </span>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="no-skills">
+
+            <span>
+                ⚠
+            </span>
+
+            <p>
+                No supported technical skills were detected.
+                Try uploading a more detailed resume.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- RECOMMENDATION -->
+
+    <div class="result-recommendation">
+
+        <div class="recommendation-icon">
+            💡
+        </div>
+
+        <div>
+
+            <span class="card-label">
+                CAREER INSIGHT
+            </span>
+
+            {% if result.score >= 80 %}
+
+            <h2>
+                Your resume looks strong!
+            </h2>
+
+            <p>
+                You have a good skill profile.
+                Explore career paths and matching jobs.
+            </p>
+
+            {% elif result.score >= 60 %}
+
+            <h2>
+                Your resume has a good foundation.
+            </h2>
+
+            <p>
+                Adding more projects, certifications and
+                relevant skills can improve your profile.
+            </p>
+
+            {% else %}
+
+            <h2>
+                Your resume needs improvement.
+            </h2>
+
+            <p>
+                Add technical skills, projects, experience
+                and relevant sections to strengthen your resume.
+            </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+
+    <div class="result-actions">
+
+        <a
+            href="{{ url_for('career') }}"
+            class="result-primary-btn">
+
+            🧭 Explore Career Paths
+
+        </a>
+
+
+       
+
+
+        <a
+            href="{{ url_for('resume') }}"
+            class="result-outline-btn">
+
+            ↻ Analyze Another Resume
+
+        </a>
+
+    </div>
+
+
+</section>
+
+{% endblock %}
+```
